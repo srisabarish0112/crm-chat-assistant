@@ -1,16 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import CrmSidebar from "@/components/CrmSidebar";
+import CrmTopbar from "@/components/CrmTopbar";
+import LeadListView from "@/components/LeadListView";
+import LeadDetailView from "@/components/LeadDetailView";
+import ChatbotPanel from "@/components/ChatbotPanel";
+import type { Lead } from "@/data/leads";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+  const [chatbotExpanded, setChatbotExpanded] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="h-screen flex flex-col overflow-hidden">
+      <CrmTopbar onZiaClick={() => setChatbotOpen(!chatbotOpen)} isChatbotOpen={chatbotOpen} />
+      <div className="flex flex-1 overflow-hidden">
+        <CrmSidebar activeItem="Leads" />
+        <div className="flex flex-1 overflow-hidden">
+          <div className={`flex-1 flex overflow-hidden transition-all duration-300`}>
+            {selectedLead ? (
+              <LeadDetailView lead={selectedLead} onBack={() => setSelectedLead(null)} />
+            ) : (
+              <LeadListView onSelectLead={setSelectedLead} />
+            )}
+          </div>
+          <ChatbotPanel
+            isOpen={chatbotOpen}
+            isExpanded={chatbotExpanded}
+            onClose={() => { setChatbotOpen(false); setChatbotExpanded(false); }}
+            onToggleExpand={() => setChatbotExpanded(!chatbotExpanded)}
+          />
+        </div>
+      </div>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;

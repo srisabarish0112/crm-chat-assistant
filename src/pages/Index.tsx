@@ -11,13 +11,18 @@ const Index = () => {
   const [chatbotOpen, setChatbotOpen] = useState(false);
   const [chatbotExpanded, setChatbotExpanded] = useState(false);
 
+  // Dynamic context based on current view
+  const chatContext = selectedLead
+    ? `${selectedLead.name} — Lead Detail`
+    : "Leads — List View";
+
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <CrmTopbar onZiaClick={() => setChatbotOpen(!chatbotOpen)} isChatbotOpen={chatbotOpen} />
       <div className="flex flex-1 overflow-hidden">
         <CrmSidebar activeItem="Leads" />
         <div className="flex flex-1 overflow-hidden">
-          <div className={`flex-1 flex overflow-hidden transition-all duration-300`}>
+          <div className="flex-1 flex overflow-hidden transition-all duration-300">
             {selectedLead ? (
               <LeadDetailView lead={selectedLead} onBack={() => setSelectedLead(null)} />
             ) : (
@@ -29,6 +34,7 @@ const Index = () => {
             isExpanded={chatbotExpanded}
             onClose={() => { setChatbotOpen(false); setChatbotExpanded(false); }}
             onToggleExpand={() => setChatbotExpanded(!chatbotExpanded)}
+            context={chatContext}
           />
         </div>
       </div>

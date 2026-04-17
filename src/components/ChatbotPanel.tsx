@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
   X, Maximize2, Minimize2, History, Send, Plus, ChevronDown, Check, Search,
-  ArrowLeft, MessageSquare, Sparkles, ArrowRight, Shield, Pin
+  ArrowLeft, MessageSquare, Sparkles, ArrowRight, Pin
 } from "lucide-react";
 import { agents, llmModels, type Agent } from "@/data/leads";
 import ReactMarkdown from "react-markdown";
+import ziaHero from "@/assets/zia-hero.png";
+import ziaShield from "@/assets/zia-shield.png";
 
 interface ChatMessage {
   id: string;
@@ -223,12 +225,12 @@ const ChatbotPanel = ({ isOpen, isExpanded, onClose, onToggleExpand, context }: 
             </button>
           ) : (
             <>
-              {/* Zia brand mark */}
-              <div className="flex items-center gap-1.5 pr-2 mr-1 border-r border-border">
-                <div className="w-6 h-6 rounded-md zia-gradient flex items-center justify-center">
+              {/* Zia brand mark — icon only to save space */}
+              <div className="flex items-center gap-1.5 pr-2 mr-0.5 border-r border-border shrink-0">
+                <div className="w-6 h-6 rounded-md zia-gradient flex items-center justify-center shrink-0">
                   <Sparkles size={13} className="text-white" />
                 </div>
-                <span className="text-[13px] font-bold zia-text-gradient">Zia Assist</span>
+                <span className="text-[13px] font-bold zia-text-gradient whitespace-nowrap hidden sm:inline">Zia</span>
               </div>
 
               {/* Agent Dropdown */}
@@ -457,70 +459,141 @@ const ChatbotPanel = ({ isOpen, isExpanded, onClose, onToggleExpand, context }: 
 
 /* ─── Generic Onboarding (Zia Assist intro) ─────────────────────── */
 
-const GenericOnboarding = ({ onStart }: { onStart: () => void }) => (
-  <div className="flex-1 overflow-y-auto crm-scrollbar zia-gradient-bg">
-    <div className="px-5 py-6 animate-zia-in">
-      {/* Hero mascot */}
-      <div className="relative flex justify-center mb-4">
-        <div className="absolute w-32 h-32 rounded-full zia-gradient opacity-20 blur-2xl" />
-        <div className="absolute w-24 h-24 rounded-full zia-gradient opacity-30 animate-zia-ring" />
-        <div className="relative w-24 h-24 rounded-full zia-gradient flex items-center justify-center shadow-xl animate-zia-float">
-          <Sparkles size={42} className="text-white" strokeWidth={2.2} />
+const GenericOnboarding = ({ onStart }: { onStart: () => void }) => {
+  const cards = [
+    {
+      icon: "👥", title: "Leads & Contacts",
+      desc: "Find, filter, and analyze leads and contact details.",
+      iconBg: "from-blue-400 to-blue-600",
+      cardBg: "from-blue-50 to-blue-100/50",
+      titleColor: "text-blue-600",
+      arrowBg: "bg-blue-500",
+      align: "left" as const,
+    },
+    {
+      icon: "📊", title: "Insights & Reports",
+      desc: "Get instant insights and visual reports from your data.",
+      iconBg: "from-emerald-400 to-emerald-600",
+      cardBg: "from-emerald-50 to-emerald-100/50",
+      titleColor: "text-emerald-600",
+      arrowBg: "bg-emerald-500",
+      align: "right" as const,
+    },
+    {
+      icon: "⚡", title: "Workflows & Tasks",
+      desc: "Track tasks, automate follow-ups, and never miss a beat.",
+      iconBg: "from-violet-400 to-violet-600",
+      cardBg: "from-violet-50 to-violet-100/50",
+      titleColor: "text-violet-600",
+      arrowBg: "bg-violet-500",
+      align: "left" as const,
+    },
+    {
+      icon: "🔍", title: "Ask Anything",
+      desc: "Ask questions in natural language and get answers instantly.",
+      iconBg: "from-orange-400 to-orange-600",
+      cardBg: "from-orange-50 to-orange-100/50",
+      titleColor: "text-orange-600",
+      arrowBg: "bg-orange-500",
+      align: "right" as const,
+    },
+  ];
+
+  return (
+    <div className="flex-1 overflow-y-auto crm-scrollbar zia-gradient-bg">
+      <div className="px-5 py-6 animate-zia-in flex flex-col items-center">
+        {/* Hero mascot */}
+        <div className="relative flex justify-center mb-3">
+          <div className="absolute inset-0 m-auto w-40 h-40 rounded-full zia-gradient opacity-20 blur-3xl" />
+          <img
+            src={ziaHero}
+            alt="Zia"
+            className="relative w-32 h-32 object-contain animate-zia-float drop-shadow-xl"
+          />
         </div>
-        {/* Orbiting dots */}
-        <span className="absolute top-2 left-1/2 -translate-x-12 w-1.5 h-1.5 rounded-full bg-primary" />
-        <span className="absolute top-6 right-1/2 translate-x-14 w-1.5 h-1.5 rounded-full bg-fuchsia-400" />
-        <span className="absolute bottom-2 left-1/2 -translate-x-10 w-1 h-1 rounded-full bg-sky-400" />
-      </div>
 
-      <h2 className="text-center text-[20px] font-bold text-foreground mb-1.5">
-        Meet <span className="zia-text-gradient">Zia Assist</span> 👋
-      </h2>
-      <p className="text-center text-[13px] text-muted-foreground max-w-[300px] mx-auto mb-5">
-        Your unified AI workspace inside the CRM — agents, insights, and contextual help, all in one place.
-      </p>
+        <h2 className="text-center text-[18px] font-bold text-foreground mb-1.5">
+          Hi! I'm <span className="zia-text-gradient">Zia Assist</span> <span className="inline-block">👋</span>
+        </h2>
+        <p className="text-center text-[12.5px] text-muted-foreground max-w-[280px] mb-4 leading-relaxed">
+          Your AI assistant for smarter CRM management and follow-ups.
+        </p>
 
-      {/* Pillar cards */}
-      <div className="grid grid-cols-2 gap-2.5 mb-4">
-        {[
-          { icon: "🤖", title: "Smart Agents", desc: "Specialized AI for every task", grad: "from-violet-100 to-purple-100", iconBg: "from-violet-500 to-purple-500" },
-          { icon: "📌", title: "Contextual Assist", desc: "Page-aware suggestions", grad: "from-pink-100 to-rose-100", iconBg: "from-pink-500 to-rose-500" },
-          { icon: "📊", title: "Live Insights", desc: "Ask data in plain English", grad: "from-sky-100 to-cyan-100", iconBg: "from-sky-500 to-cyan-500" },
-          { icon: "⚡", title: "Auto Workflows", desc: "Automate the routine", grad: "from-emerald-100 to-teal-100", iconBg: "from-emerald-500 to-teal-500" },
-        ].map((p) => (
-          <div key={p.title} className={`bg-gradient-to-br ${p.grad} rounded-2xl p-3 border border-white/60 shadow-sm`}>
-            <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${p.iconBg} flex items-center justify-center text-white text-base shadow-md mb-2`}>
-              {p.icon}
+        {/* Capability card group */}
+        <div className="w-full bg-white/90 backdrop-blur rounded-3xl p-4 border border-white shadow-[0_8px_32px_-8px_hsl(258_50%_50%/0.15)] mb-4">
+          {/* "Here's how I can help you" pill */}
+          <div className="flex justify-center mb-4">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full zia-gradient-soft border border-primary/15">
+              <Sparkles size={12} className="text-primary" />
+              <span className="text-[12px] font-medium text-foreground">
+                Here's <span className="zia-text-gradient font-bold">how</span> I can help you
+              </span>
             </div>
-            <div className="text-[12.5px] font-semibold text-foreground leading-tight">{p.title}</div>
-            <div className="text-[11px] text-foreground/60 mt-0.5 leading-snug">{p.desc}</div>
           </div>
-        ))}
-      </div>
 
-      {/* Trust band */}
-      <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/70 border border-border mb-4">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
-          <Shield size={15} />
-        </div>
-        <div className="flex-1">
-          <div className="text-[12px] font-semibold text-foreground">Private & secure</div>
-          <div className="text-[11px] text-muted-foreground">Zia only accesses what it needs to help you.</div>
-        </div>
-      </div>
+          {/* 4 cards in a 2x2 with center node */}
+          <div className="relative grid grid-cols-2 gap-3">
+            {cards.map((c) => (
+              <div
+                key={c.title}
+                className={`relative bg-gradient-to-br ${c.cardBg} rounded-2xl p-3 border border-white/80 shadow-sm`}
+              >
+                <div className="flex items-start gap-2">
+                  <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${c.iconBg} flex items-center justify-center text-white text-base shadow-md shrink-0`}>
+                    {c.icon}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className={`text-[12.5px] font-bold ${c.titleColor} leading-tight mb-0.5`}>{c.title}</div>
+                    <div className="text-[10.5px] text-foreground/65 leading-snug">{c.desc}</div>
+                  </div>
+                </div>
+                <button
+                  className={`mt-2 w-6 h-6 rounded-full ${c.arrowBg} text-white flex items-center justify-center shadow-sm hover:scale-110 transition-transform`}
+                  aria-label={c.title}
+                >
+                  <ArrowRight size={12} />
+                </button>
+              </div>
+            ))}
 
-      {/* CTA */}
-      <button
-        onClick={onStart}
-        className="w-full flex items-center justify-center gap-2 zia-gradient text-white font-semibold text-[14px] py-3 rounded-2xl shadow-lg zia-glow hover:opacity-95 transition-opacity"
-      >
-        <Sparkles size={16} />
-        Let's Get Started
-        <ArrowRight size={16} />
-      </button>
+            {/* Center sparkle node */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+              <div className="w-9 h-9 rounded-full bg-white shadow-lg border border-primary/15 flex items-center justify-center">
+                <Sparkles size={14} className="text-primary" fill="currentColor" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Security band */}
+        <div className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-violet-50/70 border border-violet-100 mb-4">
+          <img src={ziaShield} alt="" className="w-10 h-10 object-contain shrink-0" loading="lazy" />
+          <div className="flex-1 min-w-0">
+            <div className="text-[12.5px] font-semibold text-foreground">
+              Your data is safe &amp; secure 🔒
+            </div>
+            <div className="text-[10.5px] text-muted-foreground">
+              I only access the data I need to help you.
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <button
+          onClick={onStart}
+          className="w-full flex items-center justify-between gap-2 zia-gradient text-white font-semibold text-[14px] px-5 py-3 rounded-2xl shadow-lg zia-glow hover:opacity-95 transition-opacity"
+        >
+          <span className="w-5" />
+          <span className="flex items-center gap-2">
+            <Sparkles size={16} />
+            Let's Get Started 🚀
+          </span>
+          <ArrowRight size={18} />
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ─── Per-Agent Onboarding ──────────────────────────────────────── */
 

@@ -225,12 +225,12 @@ const ChatbotPanel = ({ isOpen, isExpanded, onClose, onToggleExpand, context }: 
             </button>
           ) : (
             <>
-              {/* Zia brand mark */}
-              <div className="flex items-center gap-1.5 pr-2 mr-1 border-r border-border">
-                <div className="w-6 h-6 rounded-md zia-gradient flex items-center justify-center">
+              {/* Zia brand mark — icon only to save space */}
+              <div className="flex items-center gap-1.5 pr-2 mr-0.5 border-r border-border shrink-0">
+                <div className="w-6 h-6 rounded-md zia-gradient flex items-center justify-center shrink-0">
                   <Sparkles size={13} className="text-white" />
                 </div>
-                <span className="text-[13px] font-bold zia-text-gradient">Zia Assist</span>
+                <span className="text-[13px] font-bold zia-text-gradient whitespace-nowrap hidden sm:inline">Zia</span>
               </div>
 
               {/* Agent Dropdown */}

@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
   X, Maximize2, Minimize2, History, Send, Plus, ChevronDown, Check, Search,
-  ArrowLeft, MessageSquare, Sparkles, ArrowRight, Shield, Pin
+  ArrowLeft, MessageSquare, Sparkles, ArrowRight, Pin
 } from "lucide-react";
 import { agents, llmModels, type Agent } from "@/data/leads";
 import ReactMarkdown from "react-markdown";
+import ziaHero from "@/assets/zia-hero.png";
+import ziaShield from "@/assets/zia-shield.png";
 
 interface ChatMessage {
   id: string;

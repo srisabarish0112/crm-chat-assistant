@@ -271,20 +271,142 @@ export const leads: Lead[] = [
   },
 ];
 
+import agentOrange from "@/assets/agent-orange.png";
+import agentBlue from "@/assets/agent-blue.png";
+import agentPurple from "@/assets/agent-purple.png";
+
+export interface AgentCapability {
+  icon: string;
+  title: string;
+  description: string;
+  color: string;
+}
+
 export interface Agent {
   id: string;
   name: string;
   description: string;
   avatar: string;
+  image?: string;
+  tagline: string;
+  greeting: string;
+  accent: string;
+  gradient: string;
+  capabilities: AgentCapability[];
+  starterPrompts: string[];
 }
 
 export const agents: Agent[] = [
-  { id: "1", name: "Follow up Agent", description: "Sample text about follow up regarding leads and contacts", avatar: "👨‍💼" },
-  { id: "2", name: "Workflow Agent", description: "Sample text about workflow agent for automating tasks", avatar: "👩‍💻" },
-  { id: "3", name: "Workflow Agent", description: "Sample text about workflow agent for data processing", avatar: "🧑‍🎨" },
-  { id: "4", name: "Workflow Agent", description: "Sample text about workflow agent for scheduling", avatar: "👨‍🔬" },
-  { id: "5", name: "Workflow Agent", description: "Sample text about workflow agent for reporting", avatar: "👩‍🏫" },
-  { id: "6", name: "Workflow Agent", description: "Sample text about workflow agent for analytics", avatar: "🧑‍🌾" },
+  {
+    id: "1",
+    name: "Follow up Agent",
+    description: "Smarter follow-ups, zero missed leads",
+    avatar: "🤖",
+    image: agentPurple,
+    tagline: "Your AI assistant for smarter CRM follow-ups",
+    greeting: "Hi! I'm your Follow up Agent",
+    accent: "258 90% 66%",
+    gradient: "from-violet-500 to-purple-500",
+    capabilities: [
+      { icon: "👥", title: "Leads & Contacts", description: "Find, filter, and analyze leads and contact details.", color: "from-blue-400 to-blue-600" },
+      { icon: "📊", title: "Insights & Reports", description: "Get instant insights and visual reports from your data.", color: "from-emerald-400 to-emerald-600" },
+      { icon: "⚡", title: "Workflows & Tasks", description: "Track tasks, automate follow-ups, never miss a beat.", color: "from-violet-400 to-violet-600" },
+      { icon: "🔍", title: "Ask Anything", description: "Ask questions in natural language and get answers instantly.", color: "from-orange-400 to-orange-600" },
+    ],
+    starterPrompts: [
+      "Show me leads needing follow-up today",
+      "Draft a follow-up email for my hottest lead",
+      "Which deals are at risk this week?",
+    ],
+  },
+  {
+    id: "2",
+    name: "Workflow Agent",
+    description: "Automate repetitive tasks across your CRM",
+    avatar: "⚙️",
+    image: agentBlue,
+    tagline: "Build powerful automations in seconds",
+    greeting: "Hey! I'm your Workflow Agent",
+    accent: "200 95% 55%",
+    gradient: "from-sky-500 to-cyan-500",
+    capabilities: [
+      { icon: "🔁", title: "Auto Workflows", description: "Create triggers and actions across modules without code.", color: "from-sky-400 to-sky-600" },
+      { icon: "📨", title: "Email Sequences", description: "Schedule multi-step nurture campaigns automatically.", color: "from-cyan-400 to-cyan-600" },
+      { icon: "🏷️", title: "Auto-Assign", description: "Route leads to the right rep using smart rules.", color: "from-teal-400 to-teal-600" },
+      { icon: "🧩", title: "Integrations", description: "Connect Slack, Gmail, and 100+ apps in one click.", color: "from-indigo-400 to-indigo-600" },
+    ],
+    starterPrompts: [
+      "Create a workflow for new lead assignment",
+      "Set up a 3-step email sequence",
+      "Automate task creation when a deal closes",
+    ],
+  },
+  {
+    id: "3",
+    name: "Insights Agent",
+    description: "Turn CRM data into clear, actionable insights",
+    avatar: "📈",
+    image: agentOrange,
+    tagline: "Surface what matters, hide the noise",
+    greeting: "Hello! I'm your Insights Agent",
+    accent: "25 95% 60%",
+    gradient: "from-orange-500 to-amber-500",
+    capabilities: [
+      { icon: "📊", title: "Smart Dashboards", description: "Build live dashboards from natural language queries.", color: "from-orange-400 to-orange-600" },
+      { icon: "🎯", title: "Forecasting", description: "Predict revenue and pipeline outcomes with AI.", color: "from-amber-400 to-amber-600" },
+      { icon: "🔥", title: "Anomaly Alerts", description: "Get notified when key metrics drift unexpectedly.", color: "from-red-400 to-red-600" },
+      { icon: "📑", title: "Auto Reports", description: "Generate weekly summaries delivered to your inbox.", color: "from-yellow-400 to-yellow-600" },
+    ],
+    starterPrompts: [
+      "Show this quarter's pipeline health",
+      "What's my conversion rate by source?",
+      "Forecast revenue for next month",
+    ],
+  },
+  {
+    id: "4",
+    name: "Contextual Assist",
+    description: "Page-aware help, right where you need it",
+    avatar: "✨",
+    image: agentPurple,
+    tagline: "I understand the page you're on",
+    greeting: "Hi! I'm Contextual Assist",
+    accent: "280 85% 70%",
+    gradient: "from-fuchsia-500 to-pink-500",
+    capabilities: [
+      { icon: "📌", title: "Page Aware", description: "Understands the record or list you're viewing.", color: "from-fuchsia-400 to-fuchsia-600" },
+      { icon: "💡", title: "Smart Suggestions", description: "Suggests next-best actions based on the current screen.", color: "from-pink-400 to-pink-600" },
+      { icon: "✍️", title: "Quick Drafts", description: "Drafts emails and notes using record context.", color: "from-rose-400 to-rose-600" },
+      { icon: "🔎", title: "Deep Search", description: "Find related records and history in seconds.", color: "from-purple-400 to-purple-600" },
+    ],
+    starterPrompts: [
+      "Summarize this record",
+      "What should I do next with this lead?",
+      "Draft an email using this context",
+    ],
+  },
+  {
+    id: "5",
+    name: "Email Agent",
+    description: "Write better emails, faster",
+    avatar: "✉️",
+    image: agentBlue,
+    tagline: "Personalized outreach at scale",
+    greeting: "Hey there! I'm your Email Agent",
+    accent: "160 70% 50%",
+    gradient: "from-emerald-500 to-teal-500",
+    capabilities: [
+      { icon: "✏️", title: "Smart Drafts", description: "Compose personalized emails in your tone of voice.", color: "from-emerald-400 to-emerald-600" },
+      { icon: "🌐", title: "Translate", description: "Reply in 30+ languages with a single click.", color: "from-teal-400 to-teal-600" },
+      { icon: "📎", title: "Templates", description: "Save and reuse winning templates across your team.", color: "from-green-400 to-green-600" },
+      { icon: "🧠", title: "Tone Tuner", description: "Switch between formal, friendly, and persuasive.", color: "from-lime-400 to-lime-600" },
+    ],
+    starterPrompts: [
+      "Write a cold outreach email",
+      "Translate my last reply to Spanish",
+      "Make this email more concise",
+    ],
+  },
 ];
 
 export const llmModels = [

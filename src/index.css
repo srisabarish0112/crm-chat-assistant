@@ -56,15 +56,61 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217 89% 51%;
 
-    /* Chatbot tokens */
+    /* Chatbot tokens — Zia Assist */
     --chatbot-bg: 0 0% 100%;
-    --chatbot-header: 220 20% 97%;
-    --chatbot-user-bubble: 217 89% 51%;
+    --chatbot-header: 0 0% 100%;
+    --chatbot-user-bubble: 258 90% 66%;
     --chatbot-user-text: 0 0% 100%;
-    --chatbot-bot-bubble: 220 14% 96%;
+    --chatbot-bot-bubble: 250 30% 97%;
     --chatbot-bot-text: 220 15% 20%;
-    --chatbot-input-bg: 220 14% 96%;
+    --chatbot-input-bg: 250 30% 98%;
+
+    /* Zia AI brand */
+    --zia-primary: 258 90% 66%;
+    --zia-secondary: 280 85% 70%;
+    --zia-accent: 200 95% 60%;
+    --zia-mint: 160 70% 60%;
+    --zia-peach: 25 95% 70%;
+    --zia-rose: 340 85% 70%;
+
+    --zia-gradient: linear-gradient(135deg, hsl(258 90% 66%) 0%, hsl(280 85% 70%) 50%, hsl(200 95% 60%) 100%);
+    --zia-gradient-soft: linear-gradient(135deg, hsl(258 90% 66% / 0.08) 0%, hsl(280 85% 70% / 0.08) 50%, hsl(200 95% 60% / 0.08) 100%);
+    --zia-gradient-bg: linear-gradient(180deg, hsl(258 100% 99%) 0%, hsl(280 100% 99%) 50%, hsl(200 100% 99%) 100%);
+    --zia-glow: 0 8px 32px -8px hsl(258 90% 66% / 0.35);
+    --zia-card-shadow: 0 4px 24px -8px hsl(258 50% 50% / 0.12);
   }
+}
+
+@layer utilities {
+  .zia-gradient { background: var(--zia-gradient); }
+  .zia-gradient-soft { background: var(--zia-gradient-soft); }
+  .zia-gradient-bg { background: var(--zia-gradient-bg); }
+  .zia-text-gradient {
+    background: var(--zia-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .zia-glow { box-shadow: var(--zia-glow); }
+  .zia-card-shadow { box-shadow: var(--zia-card-shadow); }
+
+  @keyframes zia-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  .animate-zia-float { animation: zia-float 4s ease-in-out infinite; }
+
+  @keyframes zia-pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+  .animate-zia-ring { animation: zia-pulse-ring 2s ease-out infinite; }
+
+  @keyframes zia-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-zia-in { animation: zia-fade-in 0.4s ease-out both; }
 }
 
 @layer base {
